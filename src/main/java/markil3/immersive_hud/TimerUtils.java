@@ -295,61 +295,6 @@ public class TimerUtils
                                        MatrixStack matrixStack,
                                        float ticks)
     {
-        float HAND_UP_TIME = 20F;
-
-        switch (hand)
-        {
-        case OFF_HAND:
-            if (mainHandTime > 0 && mainHandTime < HAND_UP_TIME)
-            {
-                /*
-                 * Undo the transformation of the previous hand
-                 */
-                matrixStack
-                        .translate(0,
-                                1.0F * (HAND_UP_TIME - mainHandTime) / HAND_UP_TIME,
-                                0);
-            }
-            if (offHandTime == 0 && !offHandLock)
-            {
-                return true;
-            }
-            else if (!offHandLock && (mapLock & 0b01) == 0)
-            {
-                if (offHandTime > 0)
-                {
-                    offHandTime -= ticks;
-                }
-                if (offHandTime < HAND_UP_TIME)
-                {
-                    matrixStack
-                            .translate(0,
-                                    -1.0F * (HAND_UP_TIME - offHandTime) / HAND_UP_TIME,
-                                    0);
-                }
-            }
-            break;
-        case MAIN_HAND:
-            if (mainHandTime == 0 && !mainHandLock)
-            {
-                return true;
-            }
-            else if (!mainHandLock && (mapLock & 0b10) == 0)
-            {
-                if (mainHandTime > 0)
-                {
-                    mainHandTime -= ticks;
-                }
-                if (mainHandTime < HAND_UP_TIME)
-                {
-                    matrixStack
-                            .translate(0,
-                                    -1.0F * (HAND_UP_TIME - mainHandTime) / HAND_UP_TIME,
-                                    0);
-                }
-            }
-            break;
-        }
         return false;
     }
 
